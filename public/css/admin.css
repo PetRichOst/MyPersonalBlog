@@ -1256,3 +1256,14 @@ div.FixedHeader_Cloned table {
 	margin: 0 !important
 }
 
+
+table.table form{
+    display: inline-block;
+}
+
+button.delete {
+    background: transparent;
+    border: none;
+    color: #337ab7;
+    padding: 0px;
+}
