@@ -21,7 +21,7 @@
         <!-- Default box -->
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Листинг сущности</h3>
+                <h3 class="box-title">Список категорий</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -44,7 +44,7 @@
                             <td><a href="{{route('categories.edit', $category->id)}}" class="fa fa-pencil"></a>
                                 {{Form::open(['route' => ['categories.destroy', $category->id], 'method' => 'delete'])}}
                                 <button type="submit" class="delete">
-                                    <a href="#" class="fa fa-remove"></a>
+                                    <a href="" class="fa fa-remove"></a>
                                 </button>
                                 {{Form::close()}}
                             </td>
