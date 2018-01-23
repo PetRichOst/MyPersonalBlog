@@ -72,17 +72,20 @@ class User extends Authenticatable
         if ($image == null)
             return;
 
-        Storage::delete('uploads/' . $this->image);
-        $fileName = str_random(10).'.'.$image->extenson();
-        $image->saveAs('uploads', $fileName);
-        $this->image = $fileName;
+        if ($this->avatar != null){
+            Storage::delete('uploads/' . $this->avatar);
+        }
+
+        $fileName = str_random(10).'.'.$image->extension();
+        $image->storeAs('uploads', $fileName);
+        $this->avatar = $fileName;
         $this->save();
     }
 
     public function getAvatar()
     {
         if ($this->image == null)
-            return 'img/no-avatar.png';
+            return 'img/no-avatar.jpg';
 
         return 'uploads/' . $this->image;
     }
