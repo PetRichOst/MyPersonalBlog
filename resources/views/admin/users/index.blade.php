@@ -31,23 +31,23 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>ID</th>
+                            <th class="text-center">ID</th>
                             <th>Имя</th>
                             <th>E-mail</th>
-                            <th>Аватар</th>
-                            <th>Действия</th>
+                            <th class="text-center">Аватар</th>
+                            <th class="text-center">Действия</th>
                         </tr>
                         </thead>
                         <tbody>
                        @foreach($users as $user)
                             <tr>
-                                <td>{{$user->id}}</td>
+                                <td class="text-center">{{$user->id}}</td>
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
                                 <td>
-                                    <img src="/uploads/{{$user->avatar}}" alt="" class="img-responsive" width="150">
+                                    <img src="{{$user->getAvatar()}}" alt="" class="img-responsive img-circle" width="100" height="100">
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <a href="{{route('users.edit', $user->id)}}" class="fa fa-pencil"></a>
                                     {{Form::open(['route' => ['users.destroy', $user->id], 'method' => 'delete'])}}
                                     <button type="submit" class="delete">

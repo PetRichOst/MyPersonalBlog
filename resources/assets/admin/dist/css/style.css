@@ -8,3 +8,9 @@ button.delete {
     color: #337ab7;
     padding: 0px;
 }
+
+.img-circle {
+    margin: auto;
+    height: 100px;
+}
+

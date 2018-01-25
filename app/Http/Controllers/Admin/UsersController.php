@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
 {
@@ -45,7 +46,7 @@ class UsersController extends Controller
         ]);
 
         $user = User::add($request->all());
-//        dd($request->file('avatar'));
+        $user->generatePassword($request->get('password'));
         $user->uploadAvatar($request->file('avatar'));
 
         return redirect()->route('users.index');
@@ -84,17 +85,22 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = User::find($id);
+
         $this->validate($request,[
             'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
+            'email' => [
+                'required',
+                Rule::unique('users')->ignore($user->id)
+            ],
             'avatar' => 'nullable',
         ]);
 
-        $user = User::find($id);
+
         $user->edit($request->all());
-//        dd($request->file('avatar'));
+        $user->generatePassword($request->get('password'));
         $user->uploadAvatar($request->file('avatar'));
+
 
         return redirect()->route('users.index');
     }
@@ -107,7 +113,7 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
+        User::find($id)->remove();
 
         return redirect()->route('users.index');
     }

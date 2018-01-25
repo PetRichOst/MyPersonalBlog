@@ -28,7 +28,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">E-mail</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="" value="{{$user->email}}" name="email">
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="" value="{{$user->email}}" name="email">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Пароль</label>
