@@ -22,6 +22,7 @@
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">Список категорий</h3>
+                @include('admin.error')
             </div>
             <!-- /.box-header -->
             <div class="box-body">
