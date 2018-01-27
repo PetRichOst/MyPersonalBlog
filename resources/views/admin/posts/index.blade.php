@@ -45,12 +45,13 @@
                             <td>{{$post->id}}</td>
                             <td>{{$post->title}}
                             </td>
-                            <td>Работа</td>
-                            <td>Фриланс, Upwork</td>
+                            <td>{{$post->getCategoryTitle()}}</td>
+                            <td>{{$post->getImplodeTagsTitles()}}</td>
                             <td>
                                 <img src="{{$post->getImage()}}" alt="" width="100">
                             </td>
-                            <td><a href="" class="fa fa-pencil"></a>
+                            <td>
+                                <a href="{{route('posts.edit',$post->id)}}" class="fa fa-pencil"></a>
                                 {{Form::open(['route' => ['posts.destroy', $post->id], 'method' => 'delete'])}}
                                     @include('admin.buttonDelete')
                                 {{Form::close()}}

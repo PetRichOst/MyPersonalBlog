@@ -2,8 +2,12 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\Storage;
+use App\Tag;
+use App\User;
+use App\Category;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Sluggable;
 
 class Post extends Model
@@ -17,7 +21,9 @@ class Post extends Model
 
     protected $fillable = [
         'title',
-        'content'
+        'content',
+        'date',
+        'category_id'
     ];
     /**
      * Return the sluggable configuration array for this model.
@@ -35,11 +41,18 @@ class Post extends Model
 
     public function category()
     {
-        return $this->hasOne(Catagery::class);
+        return $this->belongsTo(Category::class);
+    }
+
+    public function getCategoryTitle()
+    {
+        return ($this->category != null)
+            ? $this->category->title
+            : 'Нет категории';
     }
 
     public function author(){
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function tags(){
@@ -49,6 +62,13 @@ class Post extends Model
             'post_id',
             'tag_id'
         );
+    }
+
+    public function getImplodeTagsTitles()
+    {
+        return (!$this->tags->isEmpty())
+            ? implode(', ', $this->tags->pluck('title')->all())
+            : 'Нет тегов';
     }
 
     public static function add($fields)
@@ -61,7 +81,7 @@ class Post extends Model
         return $post;
     }
 
-    public function edit($fields, $id)
+    public function edit($fields)
     {
         $this->fill($fields);
         $this->save();
@@ -69,6 +89,7 @@ class Post extends Model
 
     public function remove()
     {
+        $this->removeImage();
         $this->delete();
     }
 
@@ -77,11 +98,20 @@ class Post extends Model
         if ($image == null)
             return;
 
-        Storage::delete('uploads/' . $this->image);
-        $fileName = str_random(10).'.'.$image->extenson();
-        $image->saveAs('uploads', $fileName);
+        $this->removeImage();
+
+        $fileName = str_random(10).'.'.$image->extension();
+        $image->storeAs('uploads', $fileName);
         $this->image = $fileName;
         $this->save();
+    }
+
+    public function getImage()
+    {
+        if ($this->image == null)
+            return 'img/no-avatar.png';
+
+        return '/uploads/' . $this->image;
     }
 
     public function setCategory($id)
@@ -143,14 +173,26 @@ class Post extends Model
             return $this->setFeatured();
         }
 
-        return $this->setStandart();
+        return $this->setStandard();
     }
 
-    public function getImage()
+    public function setDateAttribute($value)
     {
-        if ($this->image == null)
-            return 'img/no-image.png';
+        $date = Carbon::createFromFormat('d/m/y', $value)->format('Y-m-d');
 
-        return 'uploads/' . $this->image;
+        $this->attributes['date'] = $date;
     }
+    public function getDateAttribute($value)
+    {
+         return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/y');
+
+    }
+
+    public function removeImage()
+    {
+        if ($this->image != null){
+            Storage::delete('uploads/' . $this->image);
+        }
+    }
+
 }

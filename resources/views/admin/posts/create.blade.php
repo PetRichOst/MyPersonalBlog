@@ -15,7 +15,7 @@
 
             <!-- Default box -->
             <div class="box">
-                {{Form::open(['route' => 'posts.store', 'files' => true])}}
+                    {{Form::open(['route' => 'posts.store', 'files' => true])}}
                 <div class="box-header with-border">
                     <h3 class="box-title">Добавляем статью</h3>
                     @include('admin.error')
@@ -84,13 +84,13 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Полный текст</label>
-                            <textarea id="" cols="30" rows="10" class="form-control" name="content"></textarea>
+                            <textarea id="" cols="30" rows="10" class="form-control" name="content">{{@old('content')}}</textarea>
                         </div>
                     </div>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                    <button class="btn btn-default">Назад</button>
+                    <a href="{{route('posts.index')}}" class="btn btn-default">Назад</a>
                     <button class="btn btn-success pull-right">Добавить</button>
                 </div>
             {{Form::close()}}
