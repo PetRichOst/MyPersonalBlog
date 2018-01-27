@@ -16,8 +16,8 @@ class Post extends Model
 
     const IS_DRAFT = 0;
     const IS_PUBLIC = 1;
-    const IS_STANDARD = 0;
-    const IS_FEATURED = 1;
+    const IS_STANDARD = 1;
+    const IS_FEATURED = 0;
 
     protected $fillable = [
         'title',
