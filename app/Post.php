@@ -51,6 +51,13 @@ class Post extends Model
             : 'Нет категории';
     }
 
+    public function getCategorySlug()
+    {
+        return ($this->category != null)
+            ? $this->category->slug
+            : 'no-category';
+    }
+
     public function author(){
         return $this->belongsTo(User::class, 'user_id');
     }
@@ -223,5 +230,12 @@ class Post extends Model
     public function related()
     {
         return self::all()->except($this->id);
+    }
+
+    public function hasCategory()
+    {
+        return ($this->category_id != null)
+            ? true
+            : false;
     }
 }

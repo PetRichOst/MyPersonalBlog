@@ -3798,8 +3798,23 @@ article {
     color: #00acdf;
 }
 
+.post-thumb a{
+    margin: 0 auto;
+    width: 90%;
+    margin-top: 5%;
+    text-align: center;
+}
+
 .post-thumb img {
     width: 100%;
+    box-shadow: 5px 5px 5px 5px #888888;
+    margin-top: 5%;
+}
+.post-one{
+    margin: 0 auto;
+    width: 90%;
+    margin-top: 5%;
+    text-align: center;
 }
 
 a.more-link {
@@ -3828,7 +3843,7 @@ a.more-link:hover {
 }
 
 .post-content {
-    padding: 0 43px;
+    padding: 0 63px;
     overflow: hidden;
 
 }
@@ -3876,11 +3891,12 @@ a.more-link:hover {
 
 .post-thumb-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 1%;
+    left: 5%;
     bottom: 0;
-    height: 100%;
-    width: 100%;
+    height: 95%;
+    width: 70%;
+
     background: rgba(0, 0, 0, 0.4);
     opacity: 0;
     overflow: hidden;

@@ -18,7 +18,19 @@
                     </div>
                     <div class="post-content">
                         <header class="entry-header text-center text-uppercase">
-                            <h6><a href="#"> {{$post->getCategoryTitle()}}</a></h6>
+                            @if($post->hasCategory())
+                                <h6>
+                                    <a href="{{route('category.show', $post->category->slug)}}">
+                                        {{$post->getCategoryTitle()}}
+                                    </a>
+                                </h6>
+                            @else
+                                <h6>
+                                    <a href="{{route('category.show', 'no-category')}}">
+                                        Нет категории
+                                    </a>
+                                </h6>
+                            @endif
 
                             <h1 class="entry-title"><a href="{{route('post.show',['slug' => $post->slug])}}">{{$post->title}}</a></h1>
 
@@ -30,6 +42,11 @@
 
                             <div class="btn-continue-reading text-center text-uppercase">
                                 <a href="{{route('post.show',['slug' => $post->slug])}}" class="more-link">Продолжить чтение</a>
+                            </div>
+                            <div class="decoration">
+                                @foreach($post->tags as $tag)
+                                    <a href="{{route('tag.show', $tag->slug)}}" class="btn btn-default">{{$tag->title}}</a>
+                                @endforeach
                             </div>
                         </div>
                         <div class="social-share">
