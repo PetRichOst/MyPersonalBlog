@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('pages.index');
+Route::get('/', 'HomeController@index')->name('post.index');
 Route::get('/post/{slug}', 'HomeController@show')->name('post.show');
+Route::get('/tag/{slug}', 'HomeController@tag')->name('tag.show');
+Route::get('/category/{slug}', 'HomeController@category')->name('category.show');
 
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'],function(){

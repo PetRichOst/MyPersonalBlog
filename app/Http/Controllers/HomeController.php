@@ -18,6 +18,17 @@ class HomeController extends Controller
     public function show($slug)
     {
         $post = Post::where('slug', $slug)->firstOrFail();
-        dd($post->title);
+
+        return view('pages.show', compact('post'));
+    }
+
+    public function tag()
+    {
+        
+    }
+
+    public function ()
+    {
+        
     }
 }
