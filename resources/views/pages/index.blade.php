@@ -10,9 +10,9 @@
                 @foreach($posts as $post)
                 <article class="post">
                     <div class="post-thumb">
-                        <a href="blog.html"><img src="{{$post->getImage()}}" alt=""></a>
+                        <a href="{{route('post.show',['slug' => $post->slug])}}"><img src="{{$post->getImage()}}" alt=""></a>
 
-                        <a href="blog.html" class="post-thumb-overlay text-center">
+                        <a href="{{route('post.show',['slug' => $post->slug])}}" class="post-thumb-overlay text-center">
                             <div class="text-uppercase text-center">Посмотреть пост</div>
                         </a>
                     </div>
@@ -20,7 +20,7 @@
                         <header class="entry-header text-center text-uppercase">
                             <h6><a href="#"> {{$post->getCategoryTitle()}}</a></h6>
 
-                            <h1 class="entry-title"><a href="blog.html">{{$post->title}}</a></h1>
+                            <h1 class="entry-title"><a href="{{route('post.show',['slug' => $post->slug])}}">{{$post->title}}</a></h1>
 
 
                         </header>
@@ -29,7 +29,7 @@
                             </p>
 
                             <div class="btn-continue-reading text-center text-uppercase">
-                                <a href="" class="more-link">Продолжить чтение</a>
+                                <a href="{{route('post.show',['slug' => $post->slug])}}" class="more-link">Продолжить чтение</a>
                             </div>
                         </div>
                         <div class="social-share">

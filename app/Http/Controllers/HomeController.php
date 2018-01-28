@@ -14,4 +14,10 @@ class HomeController extends Controller
         return view('pages.index', compact('posts'));
 
     }
+
+    public function show($slug)
+    {
+        $post = Post::where('slug', $slug)->firstOrFail();
+        dd($post->title);
+    }
 }
