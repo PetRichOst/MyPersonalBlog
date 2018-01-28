@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class Post extends Model
 {
@@ -108,7 +109,8 @@ class Post extends Model
         $this->removeImage();
 
         $fileName = str_random(10).'.'.$image->extension();
-        $image->storeAs('uploads', $fileName);
+        Image::make($image->getRealPath())->resize(500, 500)->save('uploads/'.$fileName);
+//        Image::make($image->getRealPath())->resize(1000, 800)->save('uploads/'.$fileName);
         $this->image = $fileName;
         $this->save();
     }

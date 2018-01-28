@@ -51,7 +51,7 @@ class PostsController extends Controller
         ]);
         $post = Post::add($request->all());
         $post->uploadImage($request->file('image'));
-        $post->setCategory($request->getBaseUrl('category_id'));
+        $post->setCategory($request->get('category_id'));
         $post->setTags($request->get('tags'));
         $post->toggleStatus($request->get('status'));
         $post->toggleFeatured($request->get('is_featured'));
