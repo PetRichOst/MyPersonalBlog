@@ -72,7 +72,6 @@
 </nav>
 
 @yield('content')
-
 <!--footer start-->
 <div id="footer">
     <div class="footer-instagram-section">

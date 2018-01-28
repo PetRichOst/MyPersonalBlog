@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Post;
 use App\Tag;
+use App\Post;
+use App\Category;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,7 +14,6 @@ class HomeController extends Controller
         $posts = Post::paginate(3);
 
         return view('pages.index', compact('posts'));
-
     }
 
     public function show($slug)

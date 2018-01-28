@@ -109,8 +109,12 @@ class Post extends Model
         $this->removeImage();
 
         $fileName = str_random(10).'.'.$image->extension();
-        Image::make($image->getRealPath())->resize(500, 500)->save('uploads/'.$fileName);
-//        Image::make($image->getRealPath())->resize(1000, 800)->save('uploads/'.$fileName);
+
+        Image::make($image->getRealPath())
+            ->resize(1000, 800)
+            ->insert('images/original.png', 'bottom-right', 10, 10)
+            ->save('uploads/'.$fileName);
+
         $this->image = $fileName;
         $this->save();
     }
@@ -239,5 +243,18 @@ class Post extends Model
         return ($this->category_id != null)
             ? true
             : false;
+    }
+
+    public static function getPopularPosts()
+    {
+        return self::orderBy('views', 'desc')->take(3)->get();
+    }
+    public static function getFeaturedPosts()
+    {
+        return self::where('is_featured',1)->take(3)->get();
+    }
+    public static function getRecentPosts()
+    {
+        return self::orderBy('date','desc')->take(4)->get();
     }
 }
