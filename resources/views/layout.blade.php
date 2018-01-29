@@ -58,7 +58,7 @@
                         <li><a href="/logout">Выйти</a></li>
                     @else
                         <li><a href="/register">Зарегистрироваться</a></li>
-                        <li><a href="/login">Ввойти</a></li>
+                        <li><a href="/login">Войти</a></li>
                     @endif
                 </ul>
 
@@ -95,13 +95,12 @@
                         accusam et justo duo dlores et ea rebum magna text ar koto din.
                     </div>
                     <div class="address">
-                        <h4 class="text-uppercase">contact Info</h4>
+                        <h4 class="text-uppercase">Контактная информация</h4>
 
-                        <p> 142/5 BC Street, ES, VSA</p>
 
-                        <p> Phone: +123 456 78900</p>
+                        <p> Phone: +380966166299</p>
 
-                        <p>rahim@marlindev.ru</p>
+                        <p>petroostapuk@gmail.com</p>
                     </div>
                 </aside>
             </div>
@@ -202,8 +201,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="text-center">&copy; 2017 <a href="#">Blog, </a> Designed with <i
-                                class="fa fa-heart"></i> by <a href="#">Marlin</a>
+                    <div class="text-center">&copy; 2018 <a href="#">Blog, </a> Designed with <i
+                                class="fa fa-heart"></i> by <a href="#">PetRich</a>
                     </div>
                 </div>
             </div>

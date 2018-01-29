@@ -8,7 +8,7 @@
 
                     <div class="leave-comment mr0"><!--leave comment-->
 
-                        <h3 class="text-uppercase">Ввойти</h3>
+                        <h3 class="text-uppercase">Вход</h3>
                         @include('admin.error')
                         <br>
                         <form class="form-horizontal contact-form" role="form" method="post" action="/login">
@@ -25,7 +25,7 @@
                                            placeholder="password">
                                 </div>
                             </div>
-                            <button type="submit" class="btn send-btn">Ввойти</button>
+                            <button type="submit" class="btn send-btn">Войти</button>
 
                         </form>
                     </div><!--end leave comment-->

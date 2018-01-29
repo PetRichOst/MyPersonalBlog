@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
+use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -73,7 +74,9 @@ class User extends Authenticatable
         $this->removeAvatar();
 
         $fileName = str_random(10).'.'.$image->extension();
-        $image->storeAs('uploads', $fileName);
+        Image::make($image->getRealPath())
+            ->resize(100, 100)
+            ->save('uploads/usersAvatar/'.$fileName);
         $this->avatar = $fileName;
         $this->save();
     }
@@ -83,7 +86,7 @@ class User extends Authenticatable
         if ($this->avatar == null)
             return '/img/no-avatar.jpg';
 
-        return '/uploads/' . $this->avatar;
+        return '/uploads/usersAvatar/' . $this->avatar;
     }
 
     public function makeAdmin()
