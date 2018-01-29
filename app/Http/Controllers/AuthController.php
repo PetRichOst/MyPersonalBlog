@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
@@ -55,5 +56,32 @@ class AuthController extends Controller
         \Auth::logout();
 
         return redirect('/login');
+    }
+
+    public function profileShow()
+    {
+        return view('pages.profile');
+    }
+
+    public function profileUpdate(Request $request)
+    {
+        $user = User::find(\Auth::user()->id);
+
+        $this->validate($request,[
+            'name' => 'required',
+            'email' => [
+                'required',
+                Rule::unique('users')->ignore($user->id)
+            ],
+            'avatar' => 'nullable',
+        ]);
+
+
+        $user->edit($request->all());
+        $user->generatePassword($request->get('password'));
+        $user->uploadAvatar($request->file('avatar'));
+
+
+        return redirect()->route('post.index');
     }
 }

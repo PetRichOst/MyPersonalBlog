@@ -20,6 +20,8 @@ Route::get('/category/{slug}', 'HomeController@category')->name('category.show')
 
 Route::group(['middleware' => 'auth'], function (){
     Route::get('/logout', "AuthController@logout");
+    Route::get('/profile', "AuthController@profileShow");
+    Route::put('/profileUpdate', "AuthController@profileUpdate")->name('profile.update');
 });
 
 Route::group(['middleware' => 'guest'], function (){
