@@ -183,11 +183,11 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <img src="{{Auth::user()->getAvatar()}}" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>Petro Ostapuk</p>
-                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    <p>{{Auth::user()->name}}</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> {{Auth::user()->email}}</a>
                 </div>
             </div>
             <!-- search form -->

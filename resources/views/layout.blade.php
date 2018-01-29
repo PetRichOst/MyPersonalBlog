@@ -52,6 +52,9 @@
                 <ul class="nav navbar-nav text-uppercase pull-right">
                     @if(Auth::check())
                         <li><a href="/profile">Мой профиль</a></li>
+                        @if(Auth::user()->is_admin)
+                            <li><a href="/admin">Админка</a></li>
+                        @endif
                         <li><a href="/logout">Выйти</a></li>
                     @else
                         <li><a href="/register">Зарегистрироваться</a></li>
@@ -79,40 +82,7 @@
 @endif
 @yield('content')
 <!--footer start-->
-<div id="footer">
-    <div class="footer-instagram-section">
-        <h3 class="footer-instagram-title text-center text-uppercase">Instagram</h3>
 
-        <div id="footer-instagram" class="owl-carousel">
-
-            <div class="item">
-                <a href="#"><img src="/images/ins-1.jpg" alt=""></a>
-            </div>
-            <div class="item">
-                <a href="#"><img src="/images/ins-2.jpg" alt=""></a>
-            </div>
-            <div class="item">
-                <a href="#"><img src="/images/ins-3.jpg" alt=""></a>
-            </div>
-            <div class="item">
-                <a href="#"><img src="/images/ins-4.jpg" alt=""></a>
-            </div>
-            <div class="item">
-                <a href="#"><img src="/images/ins-5.jpg" alt=""></a>
-            </div>
-            <div class="item">
-                <a href="#"><img src="/images/ins-6.jpg" alt=""></a>
-            </div>
-            <div class="item">
-                <a href="#"><img src="/images/ins-7.jpg" alt=""></a>
-            </div>
-            <div class="item">
-                <a href="#"><img src="/images/ins-8.jpg" alt=""></a>
-            </div>
-
-        </div>
-    </div>
-</div>
 
 <footer class="footer-widget-section">
     <div class="container">
