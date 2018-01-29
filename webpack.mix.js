@@ -57,12 +57,12 @@ mix.styles([
 
 
 mix.scripts([
-   'resources/assets/front/js/jquery-1.11.3.min.js',
-   'resources/assets/front/js/bootstrap.min.js',
-   'resources/assets/front/js/owl.carousel.min.js',
-   'resources/assets/front/js/jquery.stickit.min.js',
-   'resources/assets/front/js/menu.js',
-   'resources/assets/front/js/scripts.js'
+    'resources/assets/front/js/jquery-1.11.3.min.js',
+    'resources/assets/front/js/bootstrap.min.js',
+    'resources/assets/front/js/owl.carousel.min.js',
+    'resources/assets/front/js/jquery.stickit.min.js',
+    'resources/assets/front/js/menu.js',
+    'resources/assets/front/js/scripts.js'
 ],'public/js/front.js');
 
 mix.copy('resources/assets/front/fonts', 'public/fonts');

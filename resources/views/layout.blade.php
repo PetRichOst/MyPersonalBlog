@@ -45,14 +45,18 @@
 
                 <ul class="nav navbar-nav text-uppercase">
                     <li><a href="{{route('post.index')}}">Домашняя страница</a></li>
-                    <li><a href="about-me.html">ABOUT ME </a></li>
-                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="about-me.html">Обо мне </a></li>
+                    <li><a href="contact.html">Контакты</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav text-uppercase pull-right">
-                    <li><a href="#">Register</a></li>
-                    <li><a href="about-me.html">Login</a></li>
-                    <li><a href="contact.html">My profile</a></li>
+                    @if(Auth::check())
+                        <li><a href="/profile">Мой профиль</a></li>
+                        <li><a href="/logout">Выйти</a></li>
+                    @else
+                        <li><a href="/register">Зарегистрироваться</a></li>
+                        <li><a href="/login">Ввойти</a></li>
+                    @endif
                 </ul>
 
             </div>
@@ -70,7 +74,9 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
-
+@if(session('status'))
+    <div class="container alert alert-danger">{{session('status')}}</div>
+@endif
 @yield('content')
 <!--footer start-->
 <div id="footer">

@@ -15,6 +15,11 @@ Route::get('/', 'HomeController@index')->name('post.index');
 Route::get('/post/{slug}', 'HomeController@show')->name('post.show');
 Route::get('/tag/{slug}', 'HomeController@tag')->name('tag.show');
 Route::get('/category/{slug}', 'HomeController@category')->name('category.show');
+Route::get('/register', "AuthController@registerForm");
+Route::post('/register', "AuthController@register");
+Route::get('/login', "AuthController@loginForm");
+Route::post('/login', "AuthController@login");
+Route::get('/logout', "AuthController@logout");
 
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'],function(){
