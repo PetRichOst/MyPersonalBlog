@@ -112,7 +112,7 @@ class Post extends Model
         $fileName = str_random(10).'.'.$image->extension();
 
         Image::make($image->getRealPath())
-            ->resize(700, 600)
+            ->resize(675, 500)
             ->insert('images/original.png', 'bottom-right', 10, 10)
             ->save('uploads/'.$fileName);
 

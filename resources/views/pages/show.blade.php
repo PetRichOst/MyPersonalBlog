@@ -12,9 +12,17 @@
                         <div class="post-content">
                             <header class="entry-header text-center text-uppercase">
                                 @if($post->hasCategory())
-                                <h6>{{$post->getCategoryTitle()}}</h6>
+                                    <h6>
+                                        <a href="{{route('category.show', $post->category->slug)}}">
+                                            {{$post->getCategoryTitle()}}
+                                        </a>
+                                    </h6>
                                 @else
-                                    <h6>Нет категории</h6>
+                                    <h6>
+                                        <a href="{{route('category.show', 'no-category')}}">
+                                            Нет категории
+                                        </a>
+                                    </h6>
                                 @endif
                                 <h1 class="entry-title">{{$post->title}}</h1>
 
@@ -43,11 +51,10 @@
                         </div>
                     </article>
                     <div class="top-comment"><!--top comment-->
-                        <img src="{{Auth::user()->getAvatar()}}" class="pull-left img-circle" alt="">
-                        <h4>{{Auth::user()->name}}</h4>
+                        <img src="{{$post->author->getAvatar()}}" class="pull-left img-circle" alt="">
+                        <h4>{{$post->author->name}}</h4>
 
-                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy hello ro mod tempor
-                            invidunt ut labore et dolore magna aliquyam erat.</p>
+                        <p>{!! $post->author->description!!}</p>
                     </div><!--top comment end-->
                     <div class="row"><!--blog next previous-->
                         <div class="col-md-6">

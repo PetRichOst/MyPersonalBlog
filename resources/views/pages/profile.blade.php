@@ -41,6 +41,12 @@
                                     <br/>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Описание</label>
+                                    <textarea id="" cols="30" rows="10" class="form-control" name="description">{!! Auth::user()->description!!}</textarea>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <br/>
