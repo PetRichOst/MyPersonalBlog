@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/logout', "AuthController@logout");
     Route::get('/profile', "AuthController@profileShow");
     Route::put('/profileUpdate', "AuthController@profileUpdate")->name('profile.update');
+    Route::post('/comment', "AuthController@comment")->name('post.comment');
 });
 
 Route::group(['middleware' => 'guest'], function (){
@@ -38,5 +39,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
     Route::resource('/tags','TagsController');
     Route::resource('/users','UsersController');
     Route::resource('/posts','PostsController');
+    Route::get('/comments','CommentsController@index');
+    Route::get('/comments/toggle/{id}','CommentsController@toggle');
+    Route::get('/comments/delete/{id}','CommentsController@delete');
 });
 

@@ -73,6 +73,11 @@ class Post extends Model
         );
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function getImplodeTagsTitles()
     {
         return (!$this->tags->isEmpty())
@@ -257,5 +262,10 @@ class Post extends Model
     public static function getRecentPosts()
     {
         return self::orderBy('date','desc')->take(4)->get();
+    }
+
+    public function getComments()
+    {
+        return $this->comments()->where('status', 1)->get();
     }
 }

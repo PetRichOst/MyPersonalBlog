@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -12,12 +13,12 @@ class Comment extends Model
 
     public function post()
     {
-        return $this->hasOne(Post::class);
+        return $this->belongsTo(Post::class);
     }
 
     public function author()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function allow()
@@ -43,5 +44,10 @@ class Comment extends Model
     public function remove()
     {
         $this->delete();
+    }
+
+    public function getDate()
+    {
+        return Carbon::createFromFormat('d/m/y', $this->created_at)->format('F d, Y');
     }
 }

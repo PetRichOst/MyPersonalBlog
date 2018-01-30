@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-
+use Auth;
 use App\User;
+use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -83,5 +84,20 @@ class AuthController extends Controller
 
 
         return redirect()->route('post.index');
+    }
+
+    public function comment(Request $request)
+    {
+        $this->validate($request, [
+            'massage' => 'require'
+        ]);
+
+        $comment = new Comment();
+        $comment->text = $request->get('message');
+        $comment->post_id = $request->get('post_id');
+        $comment->user_id = Auth::user()->id;
+        $comment->save();
+
+        return redirect()->back()->with('stastus', 'Ваш комментарий отправлен!');
     }
 }
