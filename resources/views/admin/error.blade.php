@@ -1,5 +1,5 @@
 @if ($errors->any())
-    <div class="container">
+    <div class="">
         <div class="row">
             <div class="col-md-10">
                 <div class="alert alert-danger">

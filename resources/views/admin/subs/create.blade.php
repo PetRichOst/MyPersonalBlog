@@ -18,6 +18,7 @@
                 {!! Form::open(['route' => 'subscribers.store']) !!}
                 <div class="box-header with-border">
                     <h3 class="box-title">Добавляем подписчика</h3>
+                    @include('admin.error')
                 </div>
                 <div class="box-body">
                     <div class="col-md-6">

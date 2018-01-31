@@ -38,6 +38,9 @@ class SubscriptionController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+           'email' => 'required|email|unique:subscriptions'
+        ]);
         Subscription::addAdmin($request->get('email'));
 
         return redirect()->route('subscribers.index');
