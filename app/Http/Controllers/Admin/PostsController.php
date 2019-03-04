@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Http\Controllers\Controller;
 use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class PostsController extends Controller
 {
@@ -19,7 +19,7 @@ class PostsController extends Controller
     {
         $posts = Post::all();
 
-        return view('admin.posts.index',compact('posts'));
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -29,25 +29,26 @@ class PostsController extends Controller
      */
     public function create()
     {
-        $tags = Tag::pluck('title','id' )->all();
-        $categories = Category::pluck('title','id' )->all();
+        $tags = Tag::pluck('title', 'id')->all();
+        $categories = Category::pluck('title', 'id')->all();
 
-        return view('admin.posts.create',['tags' => $tags, 'categories' => $categories]);
+        return view('admin.posts.create', ['tags' => $tags, 'categories' => $categories]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'title' => 'required',
+        $this->validate($request, [
+            'title'   => 'required',
             'content' => 'required',
-            'date' => 'required',
-            'image' => 'nullable|image'
+            'date'    => 'required',
+            'image'   => 'nullable|image',
         ]);
         $post = Post::add($request->all());
         $post->uploadImage($request->file('image'));
@@ -62,7 +63,8 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -73,14 +75,15 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $post = Post::find($id);
-        $tags = Tag::pluck('title','id' )->all();
-        $categories = Category::pluck('title','id' )->all();
+        $tags = Tag::pluck('title', 'id')->all();
+        $categories = Category::pluck('title', 'id')->all();
         $selectedTags = $post->tags->pluck('id')->all();
 
         return view('admin.posts.edit', compact(
@@ -94,17 +97,18 @@ class PostsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'title' => 'required',
+        $this->validate($request, [
+            'title'   => 'required',
             'content' => 'required',
-            'date' => 'required',
-            'image' => 'nullable|image'
+            'date'    => 'required',
+            'image'   => 'nullable|image',
         ]);
         $post = Post::find($id);
         $post->edit($request->all());
@@ -120,7 +124,8 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

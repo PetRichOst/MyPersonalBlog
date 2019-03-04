@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use App\User;
 use App\Comment;
+use App\User;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -18,9 +18,9 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required'
+            'name'     => 'required',
+            'email'    => 'required|email|unique:users',
+            'password' => 'required',
 
         ]);
         $user = User::add($request->all());
@@ -37,19 +37,18 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required'
+            'email'    => 'required|email',
+            'password' => 'required',
         ]);
 
         if (\Auth::attempt([
             'email' => $request->get('email'),
             'password' => $request->get('password'),
-        ])){
+        ])) {
             return redirect('/');
         }
 
         return redirect()->back()->with('status', 'Не верный логин или пароль!');
-
     }
 
     public function logout()
@@ -68,20 +67,18 @@ class AuthController extends Controller
     {
         $user = User::find(\Auth::user()->id);
 
-        $this->validate($request,[
-            'name' => 'required',
+        $this->validate($request, [
+            'name'  => 'required',
             'email' => [
                 'required',
-                Rule::unique('users')->ignore($user->id)
+                Rule::unique('users')->ignore($user->id),
             ],
             'avatar' => 'nullable',
         ]);
 
-
         $user->edit($request->all());
         $user->generatePassword($request->get('password'));
         $user->uploadAvatar($request->file('avatar'));
-
 
         return redirect()->route('post.index');
     }
@@ -89,7 +86,7 @@ class AuthController extends Controller
     public function comment(Request $request)
     {
         $this->validate($request, [
-            'massage' => 'require'
+            'massage' => 'require',
         ]);
 
         $comment = new Comment();

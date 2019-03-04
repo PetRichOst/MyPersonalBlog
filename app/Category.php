@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
@@ -15,7 +15,7 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'title'
+        'title',
     ];
 
     public function posts()
@@ -27,9 +27,9 @@ class Category extends Model
     {
         return [
             'slug' => [
-                'source' => 'title',
-                'onUpdate' => true
-            ]
+                'source'   => 'title',
+                'onUpdate' => true,
+            ],
         ];
     }
 }

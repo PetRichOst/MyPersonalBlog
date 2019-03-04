@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Tag;
-use App\Post;
 use App\Category;
-use Illuminate\Http\Request;
+use App\Post;
+use App\Tag;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('date', 'desc')->where('status',1)->paginate(3);
+        $posts = Post::orderBy('date', 'desc')->where('status', 1)->paginate(3);
 
         return view('pages.index', compact('posts'));
     }
@@ -34,15 +33,13 @@ class HomeController extends Controller
 
     public function category($slug)
     {
-
-        if ($slug == 'no-category'){
-            $posts = Post::where('category_id', '=',null)->paginate(2);
+        if ($slug == 'no-category') {
+            $posts = Post::where('category_id', '=', null)->paginate(2);
         } else {
             $category = Category::where('slug', $slug)->firstOrFail();
 
             $posts = $category->posts()->paginate(2);
         }
-
 
         return view('pages.list', compact('posts'));
     }

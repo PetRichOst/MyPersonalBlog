@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
@@ -15,16 +15,16 @@ class Tag extends Model
      * @var array
      */
     protected $fillable = [
-        'title'
+        'title',
     ];
 
     public function sluggable()
     {
         return [
             'slug' => [
-                'source' => 'title',
-                'onUpdate' => true
-            ]
+                'source'   => 'title',
+                'onUpdate' => true,
+            ],
         ];
     }
 

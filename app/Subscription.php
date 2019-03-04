@@ -8,7 +8,7 @@ class Subscription extends Model
 {
     public static function add($email)
     {
-        $sub = new static;
+        $sub = new static();
         $sub->email = $email;
         $sub->token = str_random(100);
         $sub->save();
@@ -18,7 +18,7 @@ class Subscription extends Model
 
     public static function addAdmin($email)
     {
-        $sub = new static;
+        $sub = new static();
         $sub->email = $email;
         $sub->save();
 

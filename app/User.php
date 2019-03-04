@@ -2,10 +2,10 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Notifications\Notifiable;
-use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class User extends Authenticatable
 {
@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'description'
+        'name', 'email', 'description',
     ];
 
     /**
@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     public static function add($fields)
     {
-        $user = new static;
+        $user = new static();
 
         $user->fill($fields);
         $user->save();
@@ -68,8 +68,9 @@ class User extends Authenticatable
 
     public function uploadAvatar($image)
     {
-        if ($image == null)
+        if ($image == null) {
             return;
+        }
 
         $this->removeAvatar();
 
@@ -83,38 +84,40 @@ class User extends Authenticatable
 
     public function getAvatar()
     {
-        if ($this->avatar == null)
+        if ($this->avatar == null) {
             return '/img/no-avatar.jpg';
+        }
 
-        return '/uploads/usersAvatar/' . $this->avatar;
+        return '/uploads/usersAvatar/'.$this->avatar;
     }
 
     public function makeAdmin()
     {
-        $this->is_admin = User::IS_ADMIN;
+        $this->is_admin = self::IS_ADMIN;
     }
 
     public function makeNormal()
     {
-        $this->is_admin = User::IS_USER;
+        $this->is_admin = self::IS_USER;
     }
 
     public function toggleAdmin($value)
     {
-        if ($value == null)
+        if ($value == null) {
             return $this->makeNormal();
+        }
 
         return $this->makeAdmin();
     }
 
     public function makeStatusBan()
     {
-        $this->is_admin = User::IS_BANNED;
+        $this->is_admin = self::IS_BANNED;
     }
 
     public function makeStatusUnban()
     {
-        $this->is_admin = User::IS_UNBANNED;
+        $this->is_admin = self::IS_UNBANNED;
     }
 
     /**
@@ -122,8 +125,9 @@ class User extends Authenticatable
      */
     public function toggleBan($value)
     {
-        if ($value == null)
+        if ($value == null) {
             return $this->makeStatusUnban();
+        }
 
         return $this->makeStatusBan();
     }
@@ -133,7 +137,7 @@ class User extends Authenticatable
      */
     public function generatePassword($password)
     {
-        if ($password != null){
+        if ($password != null) {
             $this->password = bcrypt($password);
             $this->save();
         }
@@ -141,8 +145,8 @@ class User extends Authenticatable
 
     public function removeAvatar()
     {
-        if ($this->avatar != null){
-            Storage::delete('uploads/usersAvatar/' . $this->avatar);
+        if ($this->avatar != null) {
+            Storage::delete('uploads/usersAvatar/'.$this->avatar);
         }
     }
 }

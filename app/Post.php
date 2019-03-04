@@ -2,14 +2,11 @@
 
 namespace App;
 
-use App\Tag;
-use App\User;
-use App\Category;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class Post extends Model
@@ -25,8 +22,9 @@ class Post extends Model
         'title',
         'content',
         'date',
-        'description'
+        'description',
     ];
+
     /**
      * Return the sluggable configuration array for this model.
      *
@@ -36,8 +34,8 @@ class Post extends Model
     {
         return [
             'slug' => [
-                'source' => 'title'
-            ]
+                'source' => 'title',
+            ],
         ];
     }
 
@@ -60,11 +58,13 @@ class Post extends Model
             : 'no-category';
     }
 
-    public function author(){
+    public function author()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function tags(){
+    public function tags()
+    {
         return $this->belongsToMany(
             Tag::class,
             'post_tags',
@@ -87,7 +87,7 @@ class Post extends Model
 
     public static function add($fields)
     {
-        $post = new static;
+        $post = new static();
         $post->fill($fields);
         $post->user_id = Auth::user()->id;
         $post->save();
@@ -109,8 +109,9 @@ class Post extends Model
 
     public function uploadImage($image)
     {
-        if ($image == null)
+        if ($image == null) {
             return;
+        }
 
         $this->removeImage();
 
@@ -127,16 +128,18 @@ class Post extends Model
 
     public function getImage()
     {
-        if ($this->image == null)
+        if ($this->image == null) {
             return 'img/no-avatar.png';
+        }
 
-        return '/uploads/' . $this->image;
+        return '/uploads/'.$this->image;
     }
 
     public function setCategory($id)
     {
-        if($id == null)
+        if ($id == null) {
             return;
+        }
 
         $this->category_id = $id;
         $this->save();
@@ -144,27 +147,28 @@ class Post extends Model
 
     public function setTags($ids)
     {
-        if ($ids == null)
+        if ($ids == null) {
             return;
+        }
 
         $this->tags()->sync($ids);
     }
 
     public function setDraft()
     {
-        $this->status = Post::IS_DRAFT;
+        $this->status = self::IS_DRAFT;
         $this->save();
     }
 
     public function setPublic()
     {
-        $this->status = Post::IS_PUBLIC;
+        $this->status = self::IS_PUBLIC;
         $this->save();
     }
 
     public function toggleStatus($value)
     {
-        if($value == null){
+        if ($value == null) {
             return $this->setDraft();
         }
 
@@ -173,13 +177,13 @@ class Post extends Model
 
     public function setFeatured()
     {
-        $this->is_featured = Post::IS_FEATURED;
+        $this->is_featured = self::IS_FEATURED;
         $this->save();
     }
 
     public function setStandard()
     {
-        $this->is_featured =  Post::IS_STANDARD;
+        $this->is_featured = self::IS_STANDARD;
         $this->save();
     }
 
@@ -188,7 +192,7 @@ class Post extends Model
      */
     public function toggleFeatured($value)
     {
-        if($value == null){
+        if ($value == null) {
             return $this->setFeatured();
         }
 
@@ -201,16 +205,16 @@ class Post extends Model
 
         $this->attributes['date'] = $date;
     }
+
     public function getDateAttribute($value)
     {
-         return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/y');
-
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/y');
     }
 
     public function removeImage()
     {
-        if ($this->image != null){
-            Storage::delete('uploads/' . $this->image);
+        if ($this->image != null) {
+            Storage::delete('uploads/'.$this->image);
         }
     }
 
@@ -255,13 +259,15 @@ class Post extends Model
     {
         return self::orderBy('views', 'desc')->take(3)->get();
     }
+
     public static function getFeaturedPosts()
     {
-        return self::where('is_featured',1)->take(3)->get();
+        return self::where('is_featured', 1)->take(3)->get();
     }
+
     public static function getRecentPosts()
     {
-        return self::orderBy('date','desc')->take(4)->get();
+        return self::orderBy('date', 'desc')->take(4)->get();
     }
 
     public function getComments()

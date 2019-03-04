@@ -4,7 +4,6 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Symfony\Component\Console\Tester\CommandTester;
 
 class Comment extends Model
 {
@@ -23,20 +22,21 @@ class Comment extends Model
 
     public function allow()
     {
-        $this->status = Comment::IS_ENABLED;
+        $this->status = self::IS_ENABLED;
         $this->save();
     }
 
     public function disallow()
     {
-        $this->status = Comment::IS_DISABLED;
+        $this->status = self::IS_DISABLED;
         $this->save();
     }
 
     public function toggleStatus()
     {
-        if ($this->status == Comment::IS_DISABLED)
+        if ($this->status == self::IS_DISABLED) {
             return $this->allow();
+        }
 
         return $this->disallow();
     }
